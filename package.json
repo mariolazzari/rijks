@@ -1,5 +1,5 @@
 {
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -40,5 +40,23 @@
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"
-  }
+  },
+  "description": "Rijksmuseum APIs",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mariolazzari/rijks.git"
+  },
+  "keywords": [
+    "riksmuseum",
+    "art",
+    "nodejs",
+    "typescript"
+  ],
+  "bugs": {
+    "url": "https://github.com/mariolazzari/rijks/issues"
+  },
+  "homepage": "https://github.com/mariolazzari/rijks#readme"
 }
