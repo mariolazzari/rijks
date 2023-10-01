@@ -1,4 +1,10 @@
-interface ICollectionResponse {}
+import ArtObject from "./ArtObject";
+
+interface ICollectionResponse {
+  elapsedMilliseconds: number;
+  count: number;
+  artObjects: ArtObject[];
+}
 
 type CollectionResponse = Readonly<ICollectionResponse>;
 
