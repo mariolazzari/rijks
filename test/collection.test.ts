@@ -8,7 +8,11 @@ const { API_KEY } = process.env;
 const rijks = new Rijks(API_KEY!);
 
 describe("Collection API", async () => {
-  const res = await rijks.search({ searchTerm: "Rembrandt" });
+  const res = await rijks.getCollection({
+    searchTerm: "Rembrandt",
+    perPage: 15,
+    page: 1,
+  });
 
   it("should return Rembrandt's works", () => {
     expect(res.success).true;
@@ -22,5 +26,9 @@ describe("Collection API", async () => {
     );
 
     expect(nightWatch).toBeDefined;
+  });
+
+  it("should page the results", () => {
+    //expect(res.data).toBeDefined;
   });
 });
