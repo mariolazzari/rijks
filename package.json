@@ -19,7 +19,6 @@
     "size": "size-limit",
     "analyze": "size-limit --why"
   },
-  "peerDependencies": {},
   "name": "@mariolazzari/rijks",
   "author": "Mario Lazzari",
   "module": "dist/rijks.esm.js",
@@ -35,11 +34,13 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^9.0.0",
+    "dotenv": "^16.3.1",
     "husky": "^8.0.3",
     "size-limit": "^9.0.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   },
   "description": "Rijksmuseum APIs",
   "directories": {

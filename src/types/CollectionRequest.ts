@@ -20,7 +20,7 @@ interface ICollectionRequest {
   sort: Sort;
 }
 
-type CollectionRequest = Readonly<ICollectionRequest>;
+type CollectionRequest = Partial<ICollectionRequest>;
 
 export { ICollectionRequest, CollectionRequest };
 export default CollectionRequest;
