@@ -1,7 +1,7 @@
 import Link from "./Link";
 import Image from "./Image";
 
-type ArtObject = {
+interface ArtObject {
   links: Link;
   id: string;
   objectNumber: string;
@@ -14,6 +14,6 @@ type ArtObject = {
   webImage: Image;
   headerImage: Image;
   productionPlaces: string[];
-};
+}
 
 export default ArtObject;

@@ -2,6 +2,8 @@ import Culture from "./types/Culture";
 import { fetchData } from "./utils";
 import CollectionRequest from "./types/CollectionRequest";
 import CollectionResponse from "./types/CollectionResponse";
+import CollectionDetailsRequest from "./types/CollectionDetailsRequest";
+import CollectionDetailsResponse from "./types/CollectionDetailsResponse";
 import CollectionImageRequest from "./types/CollectionImageRequest";
 import CollectionImageResponse from "./types/CollectionImageResponse";
 
@@ -11,7 +13,7 @@ class Rijks {
 
   constructor(apiKey: string, culture: Culture = "en") {
     this.apiKey = apiKey;
-    this.baseUrl += culture + "/collection";
+    this.baseUrl += `${culture}/collection`;
   }
 
   public async getCollection(params: CollectionRequest) {
@@ -36,7 +38,12 @@ class Rijks {
     return await fetchData<CollectionResponse>(url);
   }
 
-  public async getCollectionDetails() {}
+  public async getCollectionDetails(params: CollectionDetailsRequest) {
+    const { objectNumber, format = "json" } = params;
+    const url = `${this.baseUrl}/${objectNumber}?key=${this.apiKey}&format=${format}`;
+
+    return await fetchData<CollectionDetailsResponse>(url);
+  }
 
   public async getCollectionImage(params: CollectionImageRequest) {
     const { objectNumber } = params;
