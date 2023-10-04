@@ -11,8 +11,8 @@ interface ArtObject {
   longTitle: string;
   showImage: boolean;
   permitDownload: boolean;
-  webImage: Image;
-  headerImage: Image;
+  webImage?: Image;
+  headerImage?: Image;
   productionPlaces: string[];
 }
 
