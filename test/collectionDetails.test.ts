@@ -17,6 +17,6 @@ describe("Collection Details API", async () => {
     expect(res.success).true;
     expect(res.error).undefined;
 
-    console.log("res", res);
+    // console.log("res", res);
   });
 });
