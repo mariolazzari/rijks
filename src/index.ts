@@ -6,6 +6,7 @@ import CollectionDetailsRequest from "./types/CollectionDetailsRequest";
 import CollectionDetailsResponse from "./types/CollectionDetailsResponse";
 import CollectionImageRequest from "./types/CollectionImageRequest";
 import CollectionImageResponse from "./types/CollectionImageResponse";
+import Result from "./types/Result";
 
 export {
   Rijks,
@@ -15,5 +16,6 @@ export {
   CollectionDetailsResponse,
   CollectionImageRequest,
   CollectionImageResponse,
+  Result,
 };
 export default Rijks;
