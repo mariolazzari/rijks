@@ -1,5 +1,5 @@
-type CollectionImageRequest = {
+interface CollectionImageRequest {
   objectNumber: string;
-};
+}
 
 export default CollectionImageRequest;

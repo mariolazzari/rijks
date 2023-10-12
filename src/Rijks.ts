@@ -1,11 +1,11 @@
 import Culture from "./types/Culture";
 import { fetchData } from "./utils";
-import CollectionRequest from "./types/CollectionRequest";
-import CollectionResponse from "./types/CollectionResponse";
-import CollectionDetailsRequest from "./types/CollectionDetailsRequest";
-import CollectionDetailsResponse from "./types/CollectionDetailsResponse";
-import CollectionImageRequest from "./types/CollectionImageRequest";
-import CollectionImageResponse from "./types/CollectionImageResponse";
+import CollectionRequest from "./interfaces/CollectionRequest";
+import CollectionResponse from "./interfaces/CollectionResponse";
+import CollectionDetailsRequest from "./interfaces/CollectionDetailsRequest";
+import CollectionDetailsResponse from "./interfaces/CollectionDetailsResponse";
+import CollectionImageRequest from "./interfaces/CollectionImageRequest";
+import CollectionImageResponse from "./interfaces/CollectionImageResponse";
 
 class Rijks {
   private apiKey: string = "";

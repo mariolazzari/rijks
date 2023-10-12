@@ -1,8 +1,8 @@
-import Culture from "./Culture";
-import Format from "./Format";
-import Sort from "./Sort";
+import Culture from "../types/Culture";
+import Format from "../types/Format";
+import Sort from "../types/Sort";
 
-type CollectionRequest = {
+interface CollectionRequest {
   searchTerm: string;
   page: number;
   perPage: number;
@@ -17,6 +17,6 @@ type CollectionRequest = {
   imageOnly?: boolean;
   topPieces?: boolean;
   sort?: Sort;
-};
+}
 
 export default CollectionRequest;

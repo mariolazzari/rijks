@@ -1,11 +1,11 @@
-import ArtObject from "./ArtObject";
-import CountFacets from "./CountFacets";
+import ArtObject from "../types/ArtObject";
+import CountFacets from "../types/CountFacets";
 
-type CollectionResponse = {
+interface CollectionResponse {
   elapsedMilliseconds: number;
   count: number;
   countFacets: CountFacets;
   artObjects: ArtObject[];
-};
+}
 
 export default CollectionResponse;

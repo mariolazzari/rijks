@@ -1,8 +1,8 @@
-import ArtObjectDetails from "./ArtObjectDetails";
+import ArtObjectDetails from "../types/ArtObjectDetails";
 
-type CollectionDetailsResponse = {
+interface CollectionDetailsResponse {
   elapsedMilliseconds: number;
   artObject: ArtObjectDetails;
-};
+}
 
 export default CollectionDetailsResponse;
