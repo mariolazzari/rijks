@@ -35,6 +35,8 @@ v8.16.0
     - [Rijks](#rijks-1)
       - [Options](#options)
     - [getCollection](#getcollection)
+    - [getCollectionDetails](#getcollectiondetails)
+    - [getCollectionImage](#getcollectionimage)
   - [Contributing](#contributing)
   - [Credits](#credits)
   - [Built With](#built-with)
@@ -120,12 +122,27 @@ Supported options for the `Rijks` class are listed below.
 ### getCollection
 
 ```js
-const collection = await rijks.getCollection(params: CollectionRequest)
+const collection: CollectionResponse = await rijks.getCollection(params: CollectionRequest)
 ```
 
 Perform an asynchronous http request against Rijks collection api.
 
+### getCollectionDetails
 
+```js
+const collectionDetails: CollectionDetailsResponse= await rijks.getCollectionDetails(params:CollectionDetailsRequest)
+```
+
+Perform an asynchronous http request against Rijks collection details api.
+
+### getCollectionImage
+
+
+```js
+const collectionImage: CollectionImageResponse = await rijks.getCollectionImage(params: CollectionImageRequest)
+```
+
+Perform an asynchronous http request against Rijks collection image api.
 
 
 ## Contributing
