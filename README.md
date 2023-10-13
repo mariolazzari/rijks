@@ -31,11 +31,10 @@ v8.16.0
     - [Serving the app](#serving-the-app)
     - [Running the tests](#running-the-tests)
     - [Building a distribution version](#building-a-distribution-version)
-    - [Serving the distribution version](#serving-the-distribution-version)
   - [API](#api)
-    - [useBasicFetch](#usebasicfetch)
+    - [Rijks](#rijks-1)
       - [Options](#options)
-    - [fetchData](#fetchdata)
+    - [getCollection](#getcollection)
   - [Contributing](#contributing)
   - [Credits](#credits)
   - [Built With](#built-with)
@@ -54,8 +53,8 @@ These instructions will get you a copy of the project up and running on your loc
 Start with cloning this repo on your local machine:
 
 ```sh
-$ git clone https://github.com/ORG/PROJECT.git
-$ cd PROJECT
+$ git clone https://github.com/mariolazzari/rijks.git
+$ cd rijks
 ```
 
 To install and set up the library, run:
@@ -93,148 +92,41 @@ $ npm run build
 This task will create a distribution version of the project
 inside your local `dist/` folder
 
-### Serving the distribution version
-
-```sh
-$ npm run serve:dist
-```
-
-This will use `lite-server` for servign your already
-generated distribution version of the project.
-
-*Note* this requires
-[Building a distribution version](#building-a-distribution-version) first.
-
 ## API
 
-### useBasicFetch
+### Rijks
 
 ```js
-useBasicFetch(url: string = '', delay: number = 0)
+const rijks = new Rijks(apiKey: string, culture: Culture = "en")
 ```
 
-Supported options and result fields for the `useBasicFetch` hook are listed below.
+Supported options for the `Rijks` class are listed below.
 
 #### Options
 
-`url`
+`apiKey`
 
 | Type | Default value |
 | --- | --- |
 | string | '' |
 
-If present, the request will be performed as soon as the component is mounted
+`culture`
 
-Example:
+| Type | Default value |
+| --- | --- |
+| string | 'en' |
 
-```tsx
-const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch('https://api.icndb.com/jokes/random');
 
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
-
-`delay`
-
-| Type | Default value | Description |
-| --- | --- | --- |
-| number | 0 | Time in milliseconds |
-
-If present, the request will be delayed by the given amount of time
-
-Example:
-
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
-  };
-};
-
-const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch<Joke>('https://api.icndb.com/jokes/random', 2000);
-
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
-
-### fetchData
+### getCollection
 
 ```js
-fetchData(url: string)
+const collection = await rijks.getCollection(params: CollectionRequest)
 ```
 
-Perform an asynchronous http request against a given url
+Perform an asynchronous http request against Rijks collection api.
 
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
-  };
-};
 
-const ChuckNorrisJokes: React.FC = () => {
-  const { data, fetchData, error, loading } = useBasicFetch<Joke>();
-  const [jokeId, setJokeId] = useState(1);
 
-  useEffect(() => {
-    fetchData(`https://api.icndb.com/jokes/${jokeId}`);
-  }, [jokeId, fetchData]);
-
-  const handleNext = () => setJokeId(jokeId + 1);
-
-  if (error) {
-    return <p>Error</p>;
-  }
-
-  const jokeData = data && data.value;
-
-  return (
-    <div className="Comments">
-      {loading && <p>Loading...</p>}
-      {!loading && jokeData && (
-        <div>
-          <p>Joke ID: {jokeData.id}</p>
-          <p>{jokeData.joke}</p>
-        </div>
-      )}
-      {!loading && jokeData && !jokeData.joke && <p>{jokeData}</p>}
-      <button disabled={loading} onClick={handleNext}>
-        Next Joke
-      </button>
-    </div>
-  );
-};
-```
 
 ## Contributing
 
