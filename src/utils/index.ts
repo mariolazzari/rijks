@@ -1,4 +1,4 @@
-import Result from "./interfaces/Result";
+import Result from "../interfaces/Result";
 
 async function fetchData<T>(uri: string) {
   let result: Result<T> = {

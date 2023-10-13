@@ -1,104 +1,273 @@
-# Rijks Museum REST APIs client
+[![npm version](https://badge.fury.io/js/angular2-expandable-list.svg)](https://badge.fury.io/js/angular2-expandable-list)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+# Rijks
 
-> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
+> Rijks museum APIs client
 
-> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
+## Prerequisites
 
-## Commands
+Before you can use this wrapper or the API, you need a api-key. You can read more on how to obtain the API key and the parameters you can use from this page: [Rijks museum APIs](http://nodejs.org/) 
 
-TSDX scaffolds your new library inside `/src`.
+This project requires NodeJS (version 18 or later) and NPM.
+[Node](http://nodejs.org/) and [NPM](https://npmjs.org/) are really easy to install.
+To make sure you have them available on your machine,
+try running the following command.
 
-To run TSDX, use:
-
-```bash
-npm start # or yarn start
+```sh
+$ npm -v && node -v
+6.4.1
+v8.16.0
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## Table of contents
 
-To do a one-off build, use `npm run build` or `yarn build`.
+- [Rijks](#rijks)
+  - [Prerequisites](#prerequisites)
+  - [Table of contents](#table-of-contents)
+  - [Getting Started](#getting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Serving the app](#serving-the-app)
+    - [Running the tests](#running-the-tests)
+    - [Building a distribution version](#building-a-distribution-version)
+    - [Serving the distribution version](#serving-the-distribution-version)
+  - [API](#api)
+    - [useBasicFetch](#usebasicfetch)
+      - [Options](#options)
+    - [fetchData](#fetchdata)
+  - [Contributing](#contributing)
+  - [Credits](#credits)
+  - [Built With](#built-with)
+  - [Versioning](#versioning)
+  - [Authors](#authors)
+  - [License](#license)
 
-To run tests, use `npm test` or `yarn test`.
+## Getting Started
 
-## Configuration
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+## Installation
 
-### Jest
+**BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
 
-Jest tests are set up to run with `npm test` or `yarn test`.
+Start with cloning this repo on your local machine:
 
-### Bundle Analysis
-
-[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
+```sh
+$ git clone https://github.com/ORG/PROJECT.git
+$ cd PROJECT
 ```
 
-### Rollup
+To install and set up the library, run:
 
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
+```sh
+$ npm install @mariolazzari/rijks
+```
 
-### TypeScript
+Or if you prefer using Yarn:
 
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
+```sh
+$ yarn add @mariolazzari/rijks
+```
 
-## Continuous Integration
+## Usage
 
-### GitHub Actions
+### Serving the app
 
-Two actions are added by default:
+```sh
+$ npm start
+```
 
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
+### Running the tests
 
-## Optimizations
+```sh
+$ npm test
+```
 
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+### Building a distribution version
+
+```sh
+$ npm run build
+```
+
+This task will create a distribution version of the project
+inside your local `dist/` folder
+
+### Serving the distribution version
+
+```sh
+$ npm run serve:dist
+```
+
+This will use `lite-server` for servign your already
+generated distribution version of the project.
+
+*Note* this requires
+[Building a distribution version](#building-a-distribution-version) first.
+
+## API
+
+### useBasicFetch
 
 ```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
+useBasicFetch(url: string = '', delay: number = 0)
 ```
 
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+Supported options and result fields for the `useBasicFetch` hook are listed below.
 
-## Module Formats
+#### Options
 
-CJS, ESModules, and UMD module formats are supported.
+`url`
 
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+| Type | Default value |
+| --- | --- |
+| string | '' |
 
-## Named Exports
+If present, the request will be performed as soon as the component is mounted
 
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+Example:
 
-## Including Styles
+```tsx
+const MyComponent: React.FC = () => {
+  const { data, error, loading } = useBasicFetch('https://api.icndb.com/jokes/random');
 
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+  if (error) {
+    return <p>Error</p>;
+  }
 
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-## Publishing to NPM
+  return (
+    <div className="App">
+      <h2>Chuck Norris Joke of the day</h2>
+      {data && data.value && <p>{data.value.joke}</p>}
+    </div>
+  );
+};
+```
 
-We recommend using [np](https://github.com/sindresorhus/np).
-# rijks
+`delay`
+
+| Type | Default value | Description |
+| --- | --- | --- |
+| number | 0 | Time in milliseconds |
+
+If present, the request will be delayed by the given amount of time
+
+Example:
+
+```tsx
+type Joke = {
+  value: {
+    id: number;
+    joke: string;
+  };
+};
+
+const MyComponent: React.FC = () => {
+  const { data, error, loading } = useBasicFetch<Joke>('https://api.icndb.com/jokes/random', 2000);
+
+  if (error) {
+    return <p>Error</p>;
+  }
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="App">
+      <h2>Chuck Norris Joke of the day</h2>
+      {data && data.value && <p>{data.value.joke}</p>}
+    </div>
+  );
+};
+```
+
+### fetchData
+
+```js
+fetchData(url: string)
+```
+
+Perform an asynchronous http request against a given url
+
+```tsx
+type Joke = {
+  value: {
+    id: number;
+    joke: string;
+  };
+};
+
+const ChuckNorrisJokes: React.FC = () => {
+  const { data, fetchData, error, loading } = useBasicFetch<Joke>();
+  const [jokeId, setJokeId] = useState(1);
+
+  useEffect(() => {
+    fetchData(`https://api.icndb.com/jokes/${jokeId}`);
+  }, [jokeId, fetchData]);
+
+  const handleNext = () => setJokeId(jokeId + 1);
+
+  if (error) {
+    return <p>Error</p>;
+  }
+
+  const jokeData = data && data.value;
+
+  return (
+    <div className="Comments">
+      {loading && <p>Loading...</p>}
+      {!loading && jokeData && (
+        <div>
+          <p>Joke ID: {jokeData.id}</p>
+          <p>{jokeData.joke}</p>
+        </div>
+      )}
+      {!loading && jokeData && !jokeData.joke && <p>{jokeData}</p>}
+      <button disabled={loading} onClick={handleNext}>
+        Next Joke
+      </button>
+    </div>
+  );
+};
+```
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+1.  Fork it!
+2.  Create your feature branch: `git checkout -b my-new-feature`
+3.  Add your changes: `git add .`
+4.  Commit your changes: `git commit -am 'Add some feature'`
+5.  Push to the branch: `git push origin my-new-feature`
+6.  Submit a pull request :sunglasses:
+
+## Credits
+
+TODO: Write credits
+
+## Built With
+
+* Dropwizard - Bla bla bla
+* Maven - Maybe
+* Atom - ergaerga
+* Love
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+
+## Authors
+
+* **John Doe** - *Initial work* - [JohnDoe](https://github.com/JohnDoe)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+[MIT License](https://andreasonny.mit-license.org/2019) © Andrea SonnY
