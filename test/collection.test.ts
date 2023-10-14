@@ -1,11 +1,5 @@
 import { describe, it, expect } from "vitest";
-import dotenv from "dotenv";
-import Rijks from "../src/Rijks";
-
-dotenv.config();
-const { API_KEY } = process.env;
-
-const rijks = new Rijks(API_KEY!);
+import rijks from "./global";
 
 describe("Collection API", async () => {
   const res = await rijks.getCollection({
@@ -15,9 +9,9 @@ describe("Collection API", async () => {
   });
 
   it("should return Rembrandt's works", () => {
-    expect(res.success).true;
-    expect(res.error).undefined;
-    expect(res.data?.artObjects.length).gt(0);
+    expect(res.success).toBeTruthy();
+    expect(res.error).toBeUndefined();
+    expect(res.data?.artObjects.length).toBeGreaterThan(0);
   });
 
   it("should find 'The night watch'", () => {
@@ -25,7 +19,7 @@ describe("Collection API", async () => {
       a.title.toLocaleLowerCase().includes("night")
     );
 
-    expect(nightWatch).toBeDefined;
+    expect(nightWatch).toBeDefined();
   });
 
   it("should page the results", () => {

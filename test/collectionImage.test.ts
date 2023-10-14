@@ -1,11 +1,5 @@
 import { describe, it, expect } from "vitest";
-import dotenv from "dotenv";
-import Rijks from "../src/Rijks";
-
-dotenv.config();
-const { API_KEY } = process.env;
-
-const rijks = new Rijks(API_KEY!);
+import rijks from "./global";
 
 describe("Collection Image API", async () => {
   const res = await rijks.getCollectionImage({
@@ -13,8 +7,8 @@ describe("Collection Image API", async () => {
   });
 
   it("should return 'The night watch' images", () => {
-    expect(res.success).true;
-    expect(res.error).undefined;
-    expect(res.data?.levels.length).gt(0);
+    expect(res.success).toBeTruthy();
+    expect(res.error).toBeUndefined();
+    expect(res.data?.levels.length).greaterThan(0);
   });
 });

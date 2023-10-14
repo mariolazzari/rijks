@@ -13,7 +13,8 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit"
@@ -33,7 +34,7 @@
   ],
   "devDependencies": {
     "@size-limit/preset-small-lib": "^9.0.0",
-    "dotenv": "^16.3.1",
+    "@vitest/coverage-v8": "^0.34.6",
     "husky": "^8.0.3",
     "size-limit": "^9.0.0",
     "tsdx": "^0.14.1",
@@ -41,7 +42,7 @@
     "typescript": "^5.2.2",
     "vitest": "^0.34.6"
   },
-  "description": "Rijksmuseum APIs",
+  "description": "Rijksmuseum REST APIs client TypeScript based",
   "directories": {
     "test": "test"
   },
@@ -53,7 +54,9 @@
     "riksmuseum",
     "art",
     "nodejs",
-    "typescript"
+    "typescript",
+    "vitest",
+    "tsdx"
   ],
   "bugs": {
     "url": "https://github.com/mariolazzari/rijks/issues"
