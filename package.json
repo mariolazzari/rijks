@@ -1,5 +1,5 @@
 {
-  "version": "0.0.8",
+  "version": "0.0.9",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -51,12 +51,15 @@
     "url": "git+https://github.com/mariolazzari/rijks.git"
   },
   "keywords": [
+    "rijks",
+    "museum",
     "riksmuseum",
     "art",
     "nodejs",
     "typescript",
     "vitest",
-    "tsdx"
+    "tsdx",
+    "rest"
   ],
   "bugs": {
     "url": "https://github.com/mariolazzari/rijks/issues"
