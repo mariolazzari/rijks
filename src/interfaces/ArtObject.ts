@@ -1,5 +1,5 @@
-import Link from "./Link";
-import Image from "./Image";
+import Link from "../types/Link";
+import Image from "../types/Image";
 
 interface ArtObject {
   links: Link;

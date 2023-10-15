@@ -1,4 +1,4 @@
-import ArtObject from "../types/ArtObject";
+import ArtObject from "./ArtObject";
 import CountFacets from "../types/CountFacets";
 
 interface CollectionResponse {

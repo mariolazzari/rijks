@@ -1,4 +1,4 @@
-import ArtObjectDetails from "../types/ArtObjectDetails";
+import ArtObjectDetails from "./ArtObjectDetails";
 
 interface CollectionDetailsResponse {
   elapsedMilliseconds: number;

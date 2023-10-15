@@ -1,7 +1,7 @@
 import ArtObject from "./ArtObject";
-import Color from "./Color";
-import ColorNormalization from "./ColorNormalization";
-import Culture from "./Culture";
+import Color from "../types/Color";
+import ColorNormalization from "../types/ColorNormalization";
+import Culture from "../types/Culture";
 
 interface ArtObjectDetails extends ArtObject {
   priref: string;

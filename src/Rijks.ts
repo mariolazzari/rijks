@@ -17,22 +17,28 @@ class Rijks {
   }
 
   public async getCollection(params: CollectionRequest) {
-    let url = `${this.baseUrl}?key=${this.apiKey}`;
+    // request params
+    const {
+      searchTerm = "vermeer",
+      page = 1,
+      perPage = 10,
+      involvedMaker,
+      imageOnly,
+    } = params;
 
-    if (params.searchTerm) {
-      url += `&q=${params.searchTerm}`;
+    // build api endpoint
+    let url = `${this.baseUrl}?key=${this.apiKey}&q=${searchTerm}`;
+    if (page) {
+      url += `&p=${page}`;
     }
-    if (params.involvedMaker) {
-      url += `&involvedMaker=${params.involvedMaker}`;
+    if (perPage) {
+      url += `&ps=${perPage}`;
     }
-    if (params.imageOnly) {
-      url += `&imgonly=${params.imageOnly}`;
+    if (involvedMaker) {
+      url += `&involvedMaker=${involvedMaker}`;
     }
-    if (params.page) {
-      url += `&p=${params.page}`;
-    }
-    if (params.perPage) {
-      url += `&ps=${params.perPage}`;
+    if (imageOnly) {
+      url += `&imgonly=${imageOnly}`;
     }
 
     return await fetchData<CollectionResponse>(url);

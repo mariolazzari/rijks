@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import rijks from "./global";
+import { rijks, page, perPage } from "./global";
 
 describe("Collection API", async () => {
   const res = await rijks.getCollection({
     searchTerm: "Rembrandt",
-    perPage: 15,
-    page: 1,
+    page,
+    perPage,
   });
 
   it("should return Rembrandt's works", () => {
@@ -22,7 +22,7 @@ describe("Collection API", async () => {
     expect(nightWatch).toBeDefined();
   });
 
-  it("should page the results", () => {
-    //expect(res.data).toBeDefined;
+  it(`should return ${perPage} results`, () => {
+    expect(res.data?.artObjects.length).toEqual(perPage);
   });
 });
