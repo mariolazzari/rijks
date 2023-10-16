@@ -1,3 +1,24 @@
+- [Rijks](#rijks)
+  - [Gettting started](#gettting-started)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Rijks class](#rijks-class)
+    - [Constructor](#constructor)
+    - [Result](#result)
+    - [Types](#types)
+      - [Culture type](#culture-type)
+      - [Sort type](#sort-type)
+      - [CountFacets](#countfacets)
+      - [ArtObject](#artobject)
+    - [Methods](#methods)
+      - [getCollection](#getcollection)
+        - [CollectionRequest](#collectionrequest)
+        - [CollectionResponse](#collectionresponse)
+      - [getCollectionDetails](#getcollectiondetails)
+  - [Authors](#authors)
+  - [Links](#links)
+
+
 # Rijks 
 ___
 
@@ -17,6 +38,7 @@ v10.1.0
 v18.18.0
 ```
 ___
+
 
 ## Gettting started
 
@@ -66,7 +88,13 @@ npm build
 
 This task will create a distribution version of the project inside your local dist/ folder
 
-## Constructor
+## Rijks class
+
+Rijks **class++ content handles all the requests and the responses to the thrre main Rijks museum REST APIs.
+
+### Constructor
+
+In order to initialize Rijks **client**:
 
 ```js
 const rijks = new Rijks(API_KEY, culture?)
@@ -79,7 +107,7 @@ Constructor parameters
 | apiKey    | string  | Yes      |         |
 | culture   | Culture | No       | en      |
 
-## Result
+### Result
 
 This **interface** handles all REST APIs responses.
 
@@ -92,45 +120,9 @@ interface Result<T> {
 }
 ```
 
-## getCollection
+### Types
 
-*Description*
-
-This asynchronous **method** handles `GET /api/[culture]/collection` REST API.
-
-*Prototype*
-
-```ts
-async getCollection(params: CollectionRequest): Promise<Result<CollectionResponse>> 
-```
-
-*Sample code*
-
-```ts
-const params: CollectionRequest = {searchTerm: "Vermeer"}
-const collection: CollectionResponse = await rijks.getCollection(params)
-```
-### CollectionRequest 
-
-This **interface** contains all the possible parameters handled by **getCollection** method.
-
-| Parameter     | Type    | Required | Default |
-| ------------- | ------- | :------: | ------- |
-| searchTerm    | string  | Yes      |         |
-| page          | number  | Yes      | 1       |
-| perPage       | number  | Yes      | 10      |
-| format        | Format  |          | json    |
-| culture       | Culture |          | en      |
-| involvedMaker | string  |          |         |
-| type          | string  |          |         |
-| material      | string  |          |         |
-| technique     | string  |          |         |
-| period        | string  |          |         |
-| hex           | string  |          |         |
-| imageOnly     | string  |          | true    |
-| topPieces     | string  |          | true    |
-| sort          | Sort    |          |         |
-
+In order to implement all features, the following common types have been implemended:
 
 #### Culture type
 
@@ -152,17 +144,6 @@ type Sort = | "relevance"
   | "artist" 
   | "artistDesc"
 ```
-
-### CollectionResponse
-
-This **interface** contains all the values returned by **getCollection** method
-
-| Parameter           | Type         | Required | Default |
-| ------------------- | ------------ | :------: | ------- |
-| elapsedMilliseconds | number       | Yes      | 0       |
-| count               | number       | Yes      | 0       |
-| countFacets         | CountFacets  |          |         |
-| artObjects          | ArtObjects[] |          | []      |
 
 #### CountFacets
 
@@ -196,7 +177,66 @@ interface ArtObject {
 ```
 
 
-## getCollectionDetails
+### Methods
+
+Rijks client includes the following three methonds:
+
+#### getCollection
+
+*Description*
+
+This asynchronous **method** handles `GET /api/[culture]/collection` REST API.
+
+*Prototype*
+
+```ts
+async getCollection(params: CollectionRequest): Promise<Result<CollectionResponse>> 
+```
+
+*Sample code*
+
+```ts
+const params: CollectionRequest = {searchTerm: "Vermeer"}
+const collection: CollectionResponse = await rijks.getCollection(params)
+```
+##### CollectionRequest 
+
+This **interface** contains all the possible parameters handled by **getCollection** method.
+
+| Parameter     | Type    | Required | Default |
+| ------------- | ------- | :------: | ------- |
+| searchTerm    | string  | Yes      |         |
+| page          | number  | Yes      | 1       |
+| perPage       | number  | Yes      | 10      |
+| format        | Format  |          | json    |
+| culture       | Culture |          | en      |
+| involvedMaker | string  |          |         |
+| type          | string  |          |         |
+| material      | string  |          |         |
+| technique     | string  |          |         |
+| period        | string  |          |         |
+| hex           | string  |          |         |
+| imageOnly     | string  |          | true    |
+| topPieces     | string  |          | true    |
+| sort          | Sort    |          |         |
+
+
+
+##### CollectionResponse
+
+This **interface** contains all the values returned by **getCollection** method
+
+| Parameter           | Type         | Required | Default |
+| ------------------- | ------------ | :------: | ------- |
+| elapsedMilliseconds | number       | Yes      | 0       |
+| count               | number       | Yes      | 0       |
+| countFacets         | CountFacets  |          |         |
+| artObjects          | ArtObjects[] |          | []      |
+****
+
+
+
+#### getCollectionDetails
 
 *Description*
 
@@ -208,6 +248,13 @@ This **method** handles `GET /api/[culture]/collection/[object-number]` REST API
 async getCollectionDetails(params:CollectionDetailsRequst) : Promise<Result<CollectionDetailsResponse>>
 ```
 
+## Authors
 
+* **Mario Lazzari** - *Initial work*
 
+## Links
+
+* Demo [app](https://www.mariolazzari.it/hobbies/art/rijks)
+* My personal [site](https://mariolazzari.it)
+* My [github](https://github.com/mariolazzari) profile
 
