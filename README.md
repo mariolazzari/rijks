@@ -6,15 +6,27 @@
     - [Constructor](#constructor)
     - [Result](#result)
     - [Types](#types)
-      - [Culture type](#culture-type)
-      - [Sort type](#sort-type)
-      - [CountFacets](#countfacets)
       - [ArtObject](#artobject)
+      - [ArtObjectDetails](#artobjectdetails)
+      - [Color type](#color-type)
+      - [CountFacets](#countfacets)
+      - [Culture type](#culture-type)
+      - [Format type](#format-type)
+      - [Image type](#image-type)
+      - [Lavel type](#lavel-type)
+      - [Link type](#link-type)
+      - [Sort type](#sort-type)
+      - [Tile type](#tile-type)
     - [Methods](#methods)
       - [getCollection](#getcollection)
         - [CollectionRequest](#collectionrequest)
         - [CollectionResponse](#collectionresponse)
       - [getCollectionDetails](#getcollectiondetails)
+        - [CollectionDetailsRequst](#collectiondetailsrequst)
+        - [CollectionDetailsResponse](#collectiondetailsresponse)
+      - [getCollectionImage](#getcollectionimage)
+        - [CollectionImageRequest](#collectionimagerequest)
+        - [CollectionImageResponse](#collectionimageresponse)
   - [Authors](#authors)
   - [Links](#links)
 
@@ -68,7 +80,7 @@ ___
 
 **Import package**
 ```js
-import Rijks from "@mariolazzari/rijks"
+import { Rijks } from "@mariolazzari/rijks"
 ```
 
 **Watch mode**
@@ -119,41 +131,10 @@ interface Result<T> {
   error?: string;
 }
 ```
-
+****
 ### Types
 
 In order to implement all features, the following common types have been implemended:
-
-#### Culture type
-
-**Culture** type contains all supported cultures.
-
-```ts 
-type Culture = "en | nl"
-```
-
-#### Sort type
-
-**Sort** type contains all supported sorting criterias.
-
-```ts
-type Sort = | "relevance" 
-  | "objectYype" 
-  | "chronologic" 
-  | "achronologic" 
-  | "artist" 
-  | "artistDesc"
-```
-
-#### CountFacets
-
-This **type** has the following definition:
-```ts
-type CountFacets = {
-  hasimage: number;
-  ondisplay: number;
-};
-```
 
 #### ArtObject
 
@@ -175,7 +156,133 @@ interface ArtObject {
   productionPlaces: string[];
 };
 ```
+#### ArtObjectDetails
 
+This **interface** extends *ArtObject* with the following addon fields:
+
+```ts
+interface ArtObjectDetails extends ArtObject {
+  priref: string;
+  language: Culture;
+  copyrightHolder?: string;
+  colors: Color[];
+  colorsWithNormalization: ColorNormalization[];
+  normalizedColors: Color[];
+  normalized32Colors: Color[];
+  materialsThesaurus: string[];
+  techniquesThesaurus: string[];
+  productionPlacesThesaurus: string[];
+  titles: string[];
+  description: string;
+  labelText?: string;
+  objectTypes: string[];
+  objectCollection: string[];
+  makers: string[];
+}
+```
+
+#### Color type
+
+This **type** handles *ArtObjectDetails* color properties.
+
+```ts
+type Color = {
+  percentage: number;
+  hex: string;
+};
+```
+
+#### CountFacets
+
+This **type** has the following definition:
+```ts
+type CountFacets = {
+  hasimage: number;
+  ondisplay: number;
+};
+```
+
+
+#### Culture type
+
+This **type** contains all supported cultures.
+
+```ts 
+type Culture = "en | nl"
+```
+
+#### Format type
+
+This **type** contains all supported APU repsonse types.
+
+```ts 
+type Format = "json" | "jsonp" | "xml";
+```
+
+#### Image type
+
+This **type** contains all images properties.
+
+```ts 
+type Image = {
+  guid: string;
+  offsetPercentageX: number;
+  offsetPercentageY: number;
+  width: number;
+  height: number;
+  url: string;
+};
+```
+
+#### Lavel type
+
+This **type** contains level properties.
+
+```ts 
+type Level = {
+  name: string;
+  width: number;
+  height: number;
+  tiles: Tile[];
+};
+```
+
+#### Link type
+
+This **type** contains link properties.
+
+```ts 
+type Link = {
+  self?: string;
+  web?: string;
+  search?: string;
+};
+```
+
+#### Sort type
+
+**Sort** type contains all supported sorting criterias.
+
+```ts
+type Sort = | "relevance" 
+  | "objectYype" 
+  | "chronologic" 
+  | "achronologic" 
+  | "artist" 
+  | "artistDesc"
+```
+
+#### Tile type
+
+This **type** contains all tile properties.
+
+```ts 
+type Tile = {
+  x: number;
+  y: number;
+  url: string;
+};
+```
 
 ### Methods
 
@@ -235,7 +342,6 @@ This **interface** contains all the values returned by **getCollection** method
 ****
 
 
-
 #### getCollectionDetails
 
 *Description*
@@ -246,6 +352,61 @@ This **method** handles `GET /api/[culture]/collection/[object-number]` REST API
 
 ```ts 
 async getCollectionDetails(params:CollectionDetailsRequst) : Promise<Result<CollectionDetailsResponse>>
+```
+
+##### CollectionDetailsRequst
+
+This **interface** handles all possible *getCollectionDetails* parameters.
+
+```ts 
+interface CollectionDetailsRequest {
+  format: Format;
+  objectNumber: string;
+}
+```
+
+##### CollectionDetailsResponse
+
+This **interface** handles *getCollectionDetails* response.
+
+```ts 
+interface CollectionDetailsResponse {
+  elapsedMilliseconds: number;
+  artObject: ArtObjectDetails;
+}
+```
+
+#### getCollectionImage
+
+*Description*
+
+This **method** handles `GET /api/[culture]/collection/[object-number]/tiles` REST API.
+
+*Prototype*
+
+```ts 
+async getCollectionImage(params:CollectionImageRequst) : Promise<Result<CollectionImageResponse>>
+```
+
+##### CollectionImageRequest
+
+This **interface** handles all possible *getCollectionImage* parameters.
+
+
+```ts 
+interface CollectionImageRequest {
+  objectNumber: string;
+}
+```
+
+##### CollectionImageResponse
+
+This **interface** handles *getCollectionImage* response.
+
+```ts 
+interface CollectionImageResponse {
+  levels: Level[];
+}
 ```
 
 ## Authors
