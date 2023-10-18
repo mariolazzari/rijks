@@ -1,3 +1,1 @@
-type Culture = "en" | "nl";
-
-export default Culture;
+export type Culture = "en" | "nl";

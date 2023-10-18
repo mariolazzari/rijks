@@ -1,6 +1,4 @@
-type ColorNormalization = {
+export type ColorNormalization = {
   originalHex: string;
   normalizedHex: string;
 };
-
-export default ColorNormalization;

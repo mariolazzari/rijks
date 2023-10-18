@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import rijks from "./global";
+import { rijks } from "./global";
 
 describe("Collection Details API", async () => {
   const res = await rijks.getCollectionDetails({

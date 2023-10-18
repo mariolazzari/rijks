@@ -1,8 +1,6 @@
-import ArtObjectDetails from "./ArtObjectDetails";
+import { ArtObjectDetails } from "./ArtObjectDetails";
 
-interface CollectionDetailsResponse {
+export interface CollectionDetailsResponse {
   elapsedMilliseconds: number;
   artObject: ArtObjectDetails;
 }
-
-export default CollectionDetailsResponse;

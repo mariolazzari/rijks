@@ -1,9 +1,9 @@
-import ArtObject from "./ArtObject";
-import Color from "../types/Color";
-import ColorNormalization from "../types/ColorNormalization";
-import Culture from "../types/Culture";
+import { ArtObject } from "./ArtObject";
+import { Color } from "../types/Color";
+import { ColorNormalization } from "../types/ColorNormalization";
+import { Culture } from "../types/Culture";
 
-interface ArtObjectDetails extends ArtObject {
+export interface ArtObjectDetails extends ArtObject {
   priref: string;
   language: Culture;
   copyrightHolder?: string;
@@ -21,5 +21,3 @@ interface ArtObjectDetails extends ArtObject {
   objectCollection: string[];
   makers: string[];
 }
-
-export default ArtObjectDetails;

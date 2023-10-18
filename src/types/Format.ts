@@ -1,3 +1,1 @@
-type Format = "json" | "jsonp" | "xml";
-
-export default Format;
+export type Format = "json" | "jsonp" | "xml";

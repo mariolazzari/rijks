@@ -1,4 +1,4 @@
-type Image = {
+export type Image = {
   guid: string;
   offsetPercentageX: number;
   offsetPercentageY: number;
@@ -6,5 +6,3 @@ type Image = {
   height: number;
   url: string;
 };
-
-export default Image;

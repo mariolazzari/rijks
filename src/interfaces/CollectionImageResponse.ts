@@ -1,7 +1,5 @@
-import Level from "../types/Level";
+import { Level } from "../types/Level";
 
-interface CollectionImageResponse {
+export interface CollectionImageResponse {
   levels: Level[];
 }
-
-export default CollectionImageResponse;

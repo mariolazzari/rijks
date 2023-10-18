@@ -1,6 +1,4 @@
-type CountFacets = {
+export type CountFacets = {
   hasimage: number;
   ondisplay: number;
 };
-
-export default CountFacets;

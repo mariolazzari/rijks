@@ -1,8 +1,8 @@
-import Culture from "../types/Culture";
-import Format from "../types/Format";
-import Sort from "../types/Sort";
+import { Culture } from "../types/Culture";
+import { Format } from "../types/Format";
+import { Sort } from "../types/Sort";
 
-interface CollectionRequest {
+export interface CollectionRequest {
   searchTerm: string;
   page: number;
   perPage: number;
@@ -18,5 +18,3 @@ interface CollectionRequest {
   topPieces?: boolean;
   sort?: Sort;
 }
-
-export default CollectionRequest;

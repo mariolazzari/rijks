@@ -1,13 +1,14 @@
-import Culture from "./types/Culture";
-import { fetchData } from "./utils";
-import CollectionRequest from "./interfaces/CollectionRequest";
-import CollectionResponse from "./interfaces/CollectionResponse";
-import CollectionDetailsRequest from "./interfaces/CollectionDetailsRequest";
-import CollectionDetailsResponse from "./interfaces/CollectionDetailsResponse";
-import CollectionImageRequest from "./interfaces/CollectionImageRequest";
-import CollectionImageResponse from "./interfaces/CollectionImageResponse";
+import { Culture } from "./types/Culture";
+import { CollectionRequest } from "./interfaces/CollectionRequest";
+import { CollectionResponse } from "./interfaces/CollectionResponse";
+import { CollectionDetailsRequest } from "./interfaces/CollectionDetailsRequest";
+import { CollectionDetailsResponse } from "./interfaces/CollectionDetailsResponse";
+import { CollectionImageRequest } from "./interfaces/CollectionImageRequest";
+import { CollectionImageResponse } from "./interfaces/CollectionImageResponse";
+import { ResultType } from "./types/ResultType";
+import { Result } from "./interfaces/Result";
 
-class Rijks {
+export class Rijks {
   private apiKey: string = "";
   private baseUrl: string = "https://www.rijksmuseum.nl/api/";
 
@@ -16,6 +17,37 @@ class Rijks {
     this.baseUrl += `${culture}/collection`;
   }
 
+  // fetch data data from api
+  private async fetchData<T extends ResultType>(uri: string) {
+    let result: Result<T> = {
+      success: false,
+      status: 500,
+      data: undefined,
+      error: undefined,
+    };
+
+    try {
+      const res = await fetch(uri);
+      result.status = res.status;
+
+      if (res.ok) {
+        result.success = true;
+        result.data = await res.json();
+      } else {
+        result.error = res.statusText;
+      }
+    } catch (ex) {
+      if (ex instanceof Error) {
+        result.error = ex.message;
+      } else {
+        result.error = JSON.stringify(ex);
+      }
+    } finally {
+      return result;
+    }
+  }
+
+  // collection api
   public async getCollection(params: CollectionRequest) {
     // request params
     const {
@@ -41,22 +73,22 @@ class Rijks {
       url += `&imgonly=${imageOnly}`;
     }
 
-    return await fetchData<CollectionResponse>(url);
+    return await this.fetchData<CollectionResponse>(url);
   }
 
+  // collection details api
   public async getCollectionDetails(params: CollectionDetailsRequest) {
     const { objectNumber, format = "json" } = params;
     const url = `${this.baseUrl}/${objectNumber}?key=${this.apiKey}&format=${format}`;
 
-    return await fetchData<CollectionDetailsResponse>(url);
+    return await this.fetchData<CollectionDetailsResponse>(url);
   }
 
+  // collection image api
   public async getCollectionImage(params: CollectionImageRequest) {
     const { objectNumber } = params;
     const url = `${this.baseUrl}/${objectNumber}/tiles?key=${this.apiKey}`;
 
-    return await fetchData<CollectionImageResponse>(url);
+    return await this.fetchData<CollectionImageResponse>(url);
   }
 }
-
-export default Rijks;

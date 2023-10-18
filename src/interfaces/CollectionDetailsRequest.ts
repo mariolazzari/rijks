@@ -1,8 +1,6 @@
-import Format from "../types/Format";
+import { Format } from "../types/Format";
 
-interface CollectionDetailsRequest {
-  format: Format;
+export interface CollectionDetailsRequest {
   objectNumber: string;
+  format?: Format;
 }
-
-export default CollectionDetailsRequest;
