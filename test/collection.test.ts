@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { rijks, page, perPage } from "./global";
+import { rijks, page, perPage, apiError } from "./global";
 
 describe("Collection API", async () => {
   const res = await rijks.getCollection({
@@ -24,5 +24,18 @@ describe("Collection API", async () => {
 
   it(`should return ${perPage} results`, () => {
     expect(res.data?.artObjects.length).toEqual(perPage);
+  });
+
+  it("should return an Unauthorized error", async () => {
+    const res = await apiError.getCollection({
+      searchTerm: "error",
+      page,
+      perPage,
+    });
+
+    expect(res.success).toBeFalsy();
+    expect(res.status).toEqual(401);
+    expect(res.data).toBeUndefined();
+    expect(res.error).toEqual("Unauthorized");
   });
 });
