@@ -51,7 +51,6 @@ v18.18.0
 ```
 ___
 
-
 ## Gettting started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -202,7 +201,6 @@ type CountFacets = {
 };
 ```
 
-
 #### Culture type
 
 This **type** contains all supported cultures.
@@ -327,13 +325,11 @@ This **interface** contains all the possible parameters handled by **getCollecti
 | topPieces     | string  |          | true    |
 | sort          | Sort    |          |         |
 
-
-
 ##### CollectionResponse
 
 This **interface** contains all the values returned by **getCollection** method
 
-| Parameter           | Type         | Required | Default |
+| Value               | Type         | Required | Default |
 | ------------------- | ------------ | :------: | ------- |
 | elapsedMilliseconds | number       | Yes      | 0       |
 | count               | number       | Yes      | 0       |
@@ -360,10 +356,16 @@ This **interface** handles all possible *getCollectionDetails* parameters.
 
 ```ts 
 interface CollectionDetailsRequest {
-  format: Format;
   objectNumber: string;
+  format?: Format;
 }
 ```
+
+| Parameter    | Type         | Required | Default |
+| ------------ | ------------ | :------: | ------- |
+| objectNumber | string       | Yes      |         |
+| format       | Format       |          | json    |
+
 
 ##### CollectionDetailsResponse
 
@@ -398,6 +400,10 @@ interface CollectionImageRequest {
   objectNumber: string;
 }
 ```
+
+| Parameter    | Type         | Required | Default |
+| ------------ | ------------ | :------: | ------- |
+| objectNumber | string       | Yes      |         |
 
 ##### CollectionImageResponse
 
