@@ -11,6 +11,8 @@
       - [Color type](#color-type)
       - [CountFacets](#countfacets)
       - [Culture type](#culture-type)
+      - [Facet type](#facet-type)
+      - [FacetValue type](#facetvalue-type)
       - [Format type](#format-type)
       - [Image type](#image-type)
       - [Lavel type](#lavel-type)
@@ -115,8 +117,8 @@ Constructor parameters
 
 | Parameter | Type    | Required | Default |
 | --------- | ------- | :------: | ------- |
-| apiKey    | string  | Yes      |         |
-| culture   | Culture | No       | en      |
+| apiKey    | string  |   Yes    |         |
+| culture   | Culture |    No    | en      |
 
 ### Result
 
@@ -207,6 +209,30 @@ This **type** contains all supported cultures.
 
 ```ts 
 type Culture = "en | nl"
+```
+
+#### Facet type
+
+This **type** contains facet properties.
+
+```ts 
+type Facet = {
+  facets: FacetValue[];
+  name: string;
+  otherTerms: number;
+  prettyName: number;
+};
+```
+
+#### FacetValue type
+
+This **type** contains facet key / value pairs for *Facet* type.
+
+```ts 
+type FacetValue = {
+  key: string;
+  value: number;
+};
 ```
 
 #### Format type
@@ -310,9 +336,9 @@ This **interface** contains all the possible parameters handled by **getCollecti
 
 | Parameter     | Type    | Required | Default |
 | ------------- | ------- | :------: | ------- |
-| searchTerm    | string  | Yes      |         |
-| page          | number  | Yes      | 1       |
-| perPage       | number  | Yes      | 10      |
+| searchTerm    | string  |   Yes    |         |
+| page          | number  |   Yes    | 1       |
+| perPage       | number  |   Yes    | 10      |
 | format        | Format  |          | json    |
 | culture       | Culture |          | en      |
 | involvedMaker | string  |          |         |
@@ -330,12 +356,13 @@ This **interface** contains all the possible parameters handled by **getCollecti
 This **interface** contains all the values returned by **getCollection** method
 
 | Value               | Type         | Required | Default |
-| ------------------- | ------------ | :------: | ------- |
-| elapsedMilliseconds | number       | Yes      | 0       |
-| count               | number       | Yes      | 0       |
-| countFacets         | CountFacets  |          |         |
-| artObjects          | ArtObjects[] |          | []      |
-****
+| ------------------- | ------------ | :------: | :-----: |
+| elapsedMilliseconds | number       |   Yes    |    0    |
+| count               | number       |   Yes    |    0    |
+| countFacets         | CountFacets  |          |   []    |
+| artObjects          | ArtObjects[] |          |   []    |
+| facets              | Facet[]      |          |   []    |
+
 
 
 #### getCollectionDetails
@@ -361,10 +388,10 @@ interface CollectionDetailsRequest {
 }
 ```
 
-| Parameter    | Type         | Required | Default |
-| ------------ | ------------ | :------: | ------- |
-| objectNumber | string       | Yes      |         |
-| format       | Format       |          | json    |
+| Parameter    | Type   | Required | Default |
+| ------------ | ------ | :------: | ------- |
+| objectNumber | string |   Yes    |         |
+| format       | Format |          | json    |
 
 
 ##### CollectionDetailsResponse
@@ -401,9 +428,9 @@ interface CollectionImageRequest {
 }
 ```
 
-| Parameter    | Type         | Required | Default |
-| ------------ | ------------ | :------: | ------- |
-| objectNumber | string       | Yes      |         |
+| Parameter    | Type   | Required | Default |
+| ------------ | ------ | :------: | ------- |
+| objectNumber | string |   Yes    |         |
 
 ##### CollectionImageResponse
 
@@ -424,4 +451,5 @@ interface CollectionImageResponse {
 * Demo [app](https://www.mariolazzari.it/hobbies/art/rijks)
 * My personal [site](https://mariolazzari.it)
 * My [github](https://github.com/mariolazzari) profile
+* Rijksmuseum API [documentation](https://data.rijksmuseum.nl/object-metadata/api)
 
