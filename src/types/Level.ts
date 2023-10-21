@@ -1,4 +1,4 @@
-import Tile from "./Tile";
+import { Tile } from "./Tile";
 
 export type Level = {
   name: string;

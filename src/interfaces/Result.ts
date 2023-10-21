@@ -1,6 +1,6 @@
-import { ResultType } from "../types/ResultType";
+import { Response } from "../types/Response";
 
-export interface Result<T extends ResultType> {
+export interface Result<T extends Response> {
   success: boolean;
   status: number;
   data?: T;

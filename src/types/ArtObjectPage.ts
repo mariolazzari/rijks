@@ -1,4 +1,5 @@
 import { Culture } from "./Culture";
+import { Override } from "./Override";
 
 export type ArtObjectPage = {
   id: string;
@@ -12,9 +13,5 @@ export type ArtObjectPage = {
   audioFileLabel2?: string;
   createdOn: string;
   updatedOn: string;
-  adlibOverrides: {
-    titel?: string;
-    maker?: string;
-    etiketText?: string;
-  };
+  adlibOverrides: Override;
 };

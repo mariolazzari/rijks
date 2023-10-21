@@ -8,6 +8,7 @@
     - [Types](#types)
       - [ArtObject](#artobject)
       - [ArtObjectDetails](#artobjectdetails)
+      - [ArtObjectPage type](#artobjectpage-type)
       - [Color type](#color-type)
       - [CountFacets](#countfacets)
       - [Culture type](#culture-type)
@@ -17,6 +18,8 @@
       - [Image type](#image-type)
       - [Lavel type](#lavel-type)
       - [Link type](#link-type)
+      - [Override type](#override-type)
+      - [Rsponse type](#rsponse-type)
       - [Sort type](#sort-type)
       - [Tile type](#tile-type)
     - [Methods](#methods)
@@ -182,6 +185,27 @@ interface ArtObjectDetails extends ArtObject {
 }
 ```
 
+#### ArtObjectPage type
+
+This **type** handles *ArtObjectPage* properties.
+
+```ts
+type ArtObjectPage = {
+   id: string;
+  similarPages: string[];
+  lang: Culture;
+  objectNumber: string;
+  tags: string[];
+  plaqueDescription: string;
+  audioFile1?: string;
+  audioFileLabel1?: string;
+  audioFileLabel2?: string;
+  createdOn: string;
+  updatedOn: string;
+  adlibOverrides: Override;
+};
+```
+
 #### Color type
 
 This **type** handles *ArtObjectDetails* color properties.
@@ -281,6 +305,29 @@ type Link = {
   web?: string;
   search?: string;
 };
+```
+
+#### Override type
+
+This **type** handles optional overrides in *ArtObjectPage* type.
+
+```ts
+type Override = {
+  titel?: string;
+  maker?: string;
+  etiketText?: string;
+};
+```
+
+#### Rsponse type
+
+This union **type** contains all three possible API repsonse types.
+
+```ts 
+export type Response =
+  | CollectionResponse
+  | CollectionDetailsResponse
+  | CollectionImageResponse;
 ```
 
 #### Sort type
@@ -402,6 +449,7 @@ This **interface** handles *getCollectionDetails* response.
 interface CollectionDetailsResponse {
   elapsedMilliseconds: number;
   artObject: ArtObjectDetails;
+  artObjectPage: ArtObjectPage;
 }
 ```
 

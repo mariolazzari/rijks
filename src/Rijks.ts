@@ -5,7 +5,7 @@ import { CollectionDetailsRequest } from "./interfaces/CollectionDetailsRequest"
 import { CollectionDetailsResponse } from "./interfaces/CollectionDetailsResponse";
 import { CollectionImageRequest } from "./interfaces/CollectionImageRequest";
 import { CollectionImageResponse } from "./interfaces/CollectionImageResponse";
-import { ResultType } from "./types/ResultType";
+import { ResultType } from "./types/Response";
 import { Result } from "./interfaces/Result";
 
 export class Rijks {
