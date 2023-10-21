@@ -5,8 +5,8 @@ import { CollectionDetailsRequest } from "./interfaces/CollectionDetailsRequest"
 import { CollectionDetailsResponse } from "./interfaces/CollectionDetailsResponse";
 import { CollectionImageRequest } from "./interfaces/CollectionImageRequest";
 import { CollectionImageResponse } from "./interfaces/CollectionImageResponse";
-import { ResultType } from "./types/Response";
 import { Result } from "./interfaces/Result";
+import { Response } from "./types/Response";
 
 export class Rijks {
   private apiKey: string = "";
@@ -18,7 +18,7 @@ export class Rijks {
   }
 
   // fetch data data from api
-  private async fetchData<T extends ResultType>(uri: string) {
+  private async fetchData<T extends Response>(uri: string) {
     let result: Result<T> = {
       success: false,
       status: 500,
