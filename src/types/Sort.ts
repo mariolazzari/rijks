@@ -1,6 +1,6 @@
 export type Sort =
   | "relevance"
-  | "objectYype"
+  | "objectType"
   | "chronologic"
   | "achronologic"
   | "artist"

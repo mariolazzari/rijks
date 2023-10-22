@@ -4,8 +4,8 @@ import { Sort } from "../types/Sort";
 
 export interface CollectionRequest {
   searchTerm: string;
-  page: number;
-  perPage: number;
+  page?: number;
+  perPage?: number;
   format?: Format;
   culture?: Culture;
   involvedMaker?: string;

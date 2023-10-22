@@ -1,36 +1,34 @@
 import { describe, expect, it } from "vitest";
-import { rijks, page, perPage, apiError } from "./global";
+import { rijks, perPage, apiError } from "./global";
 
 describe("Collection API", async () => {
   const res = await rijks.getCollection({
     searchTerm: "Rembrandt",
-    page,
-    perPage,
+    sort: "relevance",
+    topPieces: true,
   });
 
-  it("should return Rembrandt's works", () => {
+  it("should return Rembrandt's top pieces sorted by relevance", () => {
     expect(res.success).toBeTruthy();
+    expect(res.status).toBe(200);
+    expect(res.data?.artObjects.length).toBe(perPage);
     expect(res.error).toBeUndefined();
-    expect(res.data?.artObjects.length).toBeGreaterThan(0);
+
+    console.log(res.data);
   });
 
   it("should find 'The night watch'", () => {
-    const nightWatch = res.data?.artObjects.find(a =>
-      a.title.toLocaleLowerCase().includes("night")
-    );
+    const search = "Night";
+    const nightWatch = res.data?.artObjects.find(a => a.title.includes(search));
 
     expect(nightWatch).toBeDefined();
-  });
-
-  it(`should return ${perPage} results`, () => {
-    expect(res.data?.artObjects.length).toEqual(perPage);
+    expect(nightWatch).toBeTypeOf("object");
+    expect(nightWatch?.longTitle.includes(search)).toBeTruthy();
   });
 
   it("should return an Unauthorized error", async () => {
     const res = await apiError.getCollection({
       searchTerm: "error",
-      page,
-      perPage,
     });
 
     expect(res.success).toBeFalsy();

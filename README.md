@@ -4,24 +4,6 @@
   - [Usage](#usage)
   - [Rijks class](#rijks-class)
     - [Constructor](#constructor)
-    - [Result](#result)
-    - [Types](#types)
-      - [ArtObject](#artobject)
-      - [ArtObjectDetails](#artobjectdetails)
-      - [ArtObjectPage type](#artobjectpage-type)
-      - [Color type](#color-type)
-      - [CountFacets](#countfacets)
-      - [Culture type](#culture-type)
-      - [Facet type](#facet-type)
-      - [FacetValue type](#facetvalue-type)
-      - [Format type](#format-type)
-      - [Image type](#image-type)
-      - [Lavel type](#lavel-type)
-      - [Link type](#link-type)
-      - [Override type](#override-type)
-      - [Rsponse type](#rsponse-type)
-      - [Sort type](#sort-type)
-      - [Tile type](#tile-type)
     - [Methods](#methods)
       - [getCollection](#getcollection)
         - [CollectionRequest](#collectionrequest)
@@ -32,6 +14,25 @@
       - [getCollectionImage](#getcollectionimage)
         - [CollectionImageRequest](#collectionimagerequest)
         - [CollectionImageResponse](#collectionimageresponse)
+  - [Interfaces](#interfaces)
+    - [Result](#result)
+  - [Types](#types)
+    - [ArtObject](#artobject)
+    - [ArtObjectDetails](#artobjectdetails)
+    - [ArtObjectPage](#artobjectpage)
+    - [Color](#color)
+    - [CountFacets](#countfacets)
+    - [Culture](#culture)
+    - [Facet](#facet)
+    - [FacetValue](#facetvalue)
+    - [Format](#format)
+    - [Image](#image)
+    - [Lavel](#lavel)
+    - [Link](#link)
+    - [Override](#override)
+    - [Rsponse](#rsponse)
+    - [Sort](#sort)
+    - [Tile](#tile)
   - [Authors](#authors)
   - [Links](#links)
 
@@ -123,237 +124,6 @@ Constructor parameters
 | apiKey    | string  |   Yes    |         |
 | culture   | Culture |    No    | en      |
 
-### Result
-
-This **interface** handles all REST APIs responses.
-
-```ts
-interface Result<T> {
-  success: boolean;
-  status: number;
-  data?: T;
-  error?: string;
-}
-```
-****
-### Types
-
-In order to implement all features, the following common types have been implemended:
-
-#### ArtObject
-
-This **interface** has the following structure:
-
-```ts
-interface ArtObject {
-  links: Link;
-  id: string;
-  objectNumber: string;
-  title: string;
-  hasImage: boolean;
-  principalOrFirstMaker: string;
-  longTitle: string;
-  showImage: boolean;
-  permitDownload: boolean;
-  webImage?: Image;
-  headerImage?: Image;
-  productionPlaces: string[];
-};
-```
-#### ArtObjectDetails
-
-This **interface** extends *ArtObject* with the following addon fields:
-
-```ts
-interface ArtObjectDetails extends ArtObject {
-  priref: string;
-  language: Culture;
-  copyrightHolder?: string;
-  colors: Color[];
-  colorsWithNormalization: ColorNormalization[];
-  normalizedColors: Color[];
-  normalized32Colors: Color[];
-  materialsThesaurus: string[];
-  techniquesThesaurus: string[];
-  productionPlacesThesaurus: string[];
-  titles: string[];
-  description: string;
-  labelText?: string;
-  objectTypes: string[];
-  objectCollection: string[];
-  makers: string[];
-}
-```
-
-#### ArtObjectPage type
-
-This **type** handles *ArtObjectPage* properties.
-
-```ts
-type ArtObjectPage = {
-   id: string;
-  similarPages: string[];
-  lang: Culture;
-  objectNumber: string;
-  tags: string[];
-  plaqueDescription: string;
-  audioFile1?: string;
-  audioFileLabel1?: string;
-  audioFileLabel2?: string;
-  createdOn: string;
-  updatedOn: string;
-  adlibOverrides: Override;
-};
-```
-
-#### Color type
-
-This **type** handles *ArtObjectDetails* color properties.
-
-```ts
-type Color = {
-  percentage: number;
-  hex: string;
-};
-```
-
-#### CountFacets
-
-This **type** has the following definition:
-```ts
-type CountFacets = {
-  hasimage: number;
-  ondisplay: number;
-};
-```
-
-#### Culture type
-
-This **type** contains all supported cultures.
-
-```ts 
-type Culture = "en | nl"
-```
-
-#### Facet type
-
-This **type** contains facet properties.
-
-```ts 
-type Facet = {
-  facets: FacetValue[];
-  name: string;
-  otherTerms: number;
-  prettyName: number;
-};
-```
-
-#### FacetValue type
-
-This **type** contains facet key / value pairs for *Facet* type.
-
-```ts 
-type FacetValue = {
-  key: string;
-  value: number;
-};
-```
-
-#### Format type
-
-This **type** contains all supported APU repsonse types.
-
-```ts 
-type Format = "json" | "jsonp" | "xml";
-```
-
-#### Image type
-
-This **type** contains all images properties.
-
-```ts 
-type Image = {
-  guid: string;
-  offsetPercentageX: number;
-  offsetPercentageY: number;
-  width: number;
-  height: number;
-  url: string;
-};
-```
-
-#### Lavel type
-
-This **type** contains level properties.
-
-```ts 
-type Level = {
-  name: string;
-  width: number;
-  height: number;
-  tiles: Tile[];
-};
-```
-
-#### Link type
-
-This **type** contains link properties.
-
-```ts 
-type Link = {
-  self?: string;
-  web?: string;
-  search?: string;
-};
-```
-
-#### Override type
-
-This **type** handles optional overrides in *ArtObjectPage* type.
-
-```ts
-type Override = {
-  titel?: string;
-  maker?: string;
-  etiketText?: string;
-};
-```
-
-#### Rsponse type
-
-This union **type** contains all three possible API repsonse types.
-
-```ts 
-export type Response =
-  | CollectionResponse
-  | CollectionDetailsResponse
-  | CollectionImageResponse;
-```
-
-#### Sort type
-
-**Sort** type contains all supported sorting criterias.
-
-```ts
-type Sort = | "relevance" 
-  | "objectYype" 
-  | "chronologic" 
-  | "achronologic" 
-  | "artist" 
-  | "artistDesc"
-```
-
-#### Tile type
-
-This **type** contains all tile properties.
-
-```ts 
-type Tile = {
-  x: number;
-  y: number;
-  url: string;
-};
-```
 
 ### Methods
 
@@ -489,6 +259,247 @@ interface CollectionImageResponse {
   levels: Level[];
 }
 ```
+
+
+## Interfaces
+
+The following interfaces are used for mapping all API requests and responses. In case of complex structure, interfece are used in order to extends basic features.
+
+
+### Result
+
+This **interface** handles all REST APIs responses.
+
+```ts
+interface Result<T extends Respnse> {
+  success: boolean;
+  status: number;
+  data?: T;
+  error?: string;
+}
+```
+****
+
+## Types
+
+In order to implement all features, the following common types have been implemended:
+
+### ArtObject
+
+This **interface** has the following structure:
+
+```ts
+interface ArtObject {
+  links: Link;
+  id: string;
+  objectNumber: string;
+  title: string;
+  hasImage: boolean;
+  principalOrFirstMaker: string;
+  longTitle: string;
+  showImage: boolean;
+  permitDownload: boolean;
+  webImage?: Image;
+  headerImage?: Image;
+  productionPlaces: string[];
+};
+```
+
+### ArtObjectDetails
+
+This **interface** extends *ArtObject* with the following addon fields:
+
+```ts
+interface ArtObjectDetails extends ArtObject {
+  priref: string;
+  language: Culture;
+  copyrightHolder?: string;
+  colors: Color[];
+  colorsWithNormalization: ColorNormalization[];
+  normalizedColors: Color[];
+  normalized32Colors: Color[];
+  materialsThesaurus: string[];
+  techniquesThesaurus: string[];
+  productionPlacesThesaurus: string[];
+  titles: string[];
+  description: string;
+  labelText?: string;
+  objectTypes: string[];
+  objectCollection: string[];
+  makers: string[];
+}
+```
+
+### ArtObjectPage
+
+This **type** handles *ArtObjectPage* properties.
+
+```ts
+type ArtObjectPage = {
+   id: string;
+  similarPages: string[];
+  lang: Culture;
+  objectNumber: string;
+  tags: string[];
+  plaqueDescription: string;
+  audioFile1?: string;
+  audioFileLabel1?: string;
+  audioFileLabel2?: string;
+  createdOn: string;
+  updatedOn: string;
+  adlibOverrides: Override;
+};
+```
+
+### Color
+
+This **type** handles *ArtObjectDetails* color properties.
+
+```ts
+type Color = {
+  percentage: number;
+  hex: string;
+};
+```
+
+### CountFacets
+
+This **type** has the following definition:
+```ts
+type CountFacets = {
+  hasimage: number;
+  ondisplay: number;
+};
+```
+
+### Culture
+
+This **type** contains all supported cultures.
+
+```ts 
+type Culture = "en | nl"
+```
+
+### Facet
+
+This **type** contains facet properties.
+
+```ts 
+type Facet = {
+  facets: FacetValue[];
+  name: string;
+  otherTerms: number;
+  prettyName: number;
+};
+```
+
+### FacetValue
+
+This **type** contains facet key / value pairs for *Facet* type.
+
+```ts 
+type FacetValue = {
+  key: string;
+  value: number;
+};
+```
+
+### Format
+
+This **type** contains all supported APU repsonse types.
+
+```ts 
+type Format = "json" | "jsonp" | "xml";
+```
+
+### Image
+
+This **type** contains all images properties.
+
+```ts 
+type Image = {
+  guid: string;
+  offsetPercentageX: number;
+  offsetPercentageY: number;
+  width: number;
+  height: number;
+  url: string;
+};
+```
+
+### Lavel
+
+This **type** contains level properties.
+
+```ts 
+type Level = {
+  name: string;
+  width: number;
+  height: number;
+  tiles: Tile[];
+};
+```
+
+### Link
+
+This **type** contains link properties.
+
+```ts 
+type Link = {
+  self?: string;
+  web?: string;
+  search?: string;
+};
+```
+
+### Override
+
+This **type** handles optional overrides in *ArtObjectPage* type.
+
+```ts
+type Override = {
+  titel?: string;
+  maker?: string;
+  etiketText?: string;
+};
+```
+
+### Rsponse
+
+This union **type** contains all possible API repsonse types.
+
+```ts 
+export type Response =
+  | CollectionResponse
+  | CollectionDetailsResponse
+  | CollectionImageResponse;
+```
+
+### Sort
+
+**Sort** type contains all supported sorting criterias.
+
+```ts
+type Sort = | "relevance" 
+  | "objectYype" 
+  | "chronologic" 
+  | "achronologic" 
+  | "artist" 
+  | "artistDesc"
+```
+
+### Tile
+
+This **type** contains all tile properties.
+
+```ts 
+type Tile = {
+  x: number;
+  y: number;
+  url: string;
+};
+```
+
 
 ## Authors
 

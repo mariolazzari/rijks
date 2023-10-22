@@ -7,6 +7,7 @@ import { CollectionImageRequest } from "./interfaces/CollectionImageRequest";
 import { CollectionImageResponse } from "./interfaces/CollectionImageResponse";
 import { Result } from "./interfaces/Result";
 import { Response } from "./types/Response";
+import { Sort } from "./types/Sort";
 
 export class Rijks {
   private apiKey: string = "";
@@ -47,30 +48,92 @@ export class Rijks {
     }
   }
 
-  // collection api
-  public async getCollection(params: CollectionRequest) {
+  // compute api collection api url
+  private getCollectionUrl(params: CollectionRequest) {
     // request params
     const {
-      searchTerm = "vermeer",
-      page = 1,
-      perPage = 10,
+      page,
+      perPage,
+      format,
       involvedMaker,
+      type,
+      material,
+      technique,
+      period,
+      hex,
       imageOnly,
+      topPieces,
     } = params;
 
-    // build api endpoint
-    let url = `${this.baseUrl}?key=${this.apiKey}&q=${searchTerm}`;
+    let url = "";
     if (page) {
       url += `&p=${page}`;
     }
     if (perPage) {
       url += `&ps=${perPage}`;
     }
+    if (format) {
+      url += `&format=${format}`;
+    }
     if (involvedMaker) {
       url += `&involvedMaker=${involvedMaker}`;
     }
+    if (type) {
+      url += `&type=${type}`;
+    }
+    if (material) {
+      url += `&material=${material}`;
+    }
+    if (technique) {
+      url += `&technique=${technique}`;
+    }
+    if (period) {
+      url += `&f.dating.period=${period}`;
+    }
+    if (hex) {
+      url += `&f.normalized32Colors.hex=${hex}`;
+    }
     if (imageOnly) {
       url += `&imgonly=${imageOnly}`;
+    }
+    if (topPieces) {
+      url += `&toppieces=${imageOnly}`;
+    }
+
+    return url;
+  }
+
+  // compute sort criteria
+  private getSorting(sort: Sort) {
+    let criteria = "";
+
+    switch (sort) {
+      case "relevance":
+        criteria = "&s=relevance";
+        break;
+
+      case "objectType":
+        criteria = "objecttype";
+        break;
+
+      case "chronologic":
+        criteria = "chronologic";
+        break;
+    }
+
+    return criteria ? `&s=${criteria}` : "";
+  }
+
+  // collection api
+  public async getCollection(params: CollectionRequest) {
+    // build api endpoint
+    const { searchTerm, sort } = params;
+    let url = `${this.baseUrl}?key=${this.apiKey}&q=${searchTerm}`;
+    // parse api params
+    url += this.getCollectionUrl(params);
+    // sorting criteria
+    if (sort) {
+      url += this.getSorting(sort);
     }
 
     return await this.fetchData<CollectionResponse>(url);
