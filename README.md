@@ -127,7 +127,7 @@ Constructor parameters
 
 ### Methods
 
-Rijks client includes the following three methonds:
+Rijks client includes the following three methods:
 
 #### getCollection
 
