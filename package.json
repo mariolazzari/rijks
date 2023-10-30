@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0",
+  "version": "0.2.1",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,10 +33,10 @@
     }
   ],
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^9.0.0",
+    "@size-limit/preset-small-lib": "^10.0.1",
     "@vitest/coverage-v8": "^0.34.6",
     "husky": "^8.0.3",
-    "size-limit": "^9.0.0",
+    "size-limit": "^10.0.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2",
@@ -54,6 +54,7 @@
     "rijks",
     "museum",
     "riksmuseum",
+    "amsterdam",
     "art",
     "nodejs",
     "typescript",

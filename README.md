@@ -40,7 +40,7 @@
 # Rijks 
 ___
 
-This package is a wrapper around the public REST APIs of Rijksmuseum (Amsterdam).
+This package is a TypeScript based wrapper around the public REST APIs of Rijksmuseum (Amsterdam).
 
 **Prerequisites**
 
@@ -107,7 +107,7 @@ This task will create a distribution version of the project inside your local di
 
 ## Rijks class
 
-Rijks **class++ content handles all the requests and the responses to the thrre main Rijks museum REST APIs.
+Rijks **clas** content handles all the requests and the responses to the thrre main Rijks museum REST APIs.
 
 ### Constructor
 
