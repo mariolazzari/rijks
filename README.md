@@ -1,3 +1,23 @@
+# Rijks 
+___
+
+This package is a TypeScript based wrapper around the public REST APIs of Rijksmuseum (Amsterdam).
+
+**Prerequisites**
+
+In order to use this package, you need an api key: You can read more on how to obtain the API key on [this page](http://rijksmuseum.github.io).
+
+This package requires [NodeJS](https://nodejs.org) (version 18 or later) and a node package manager (Npm, Yarn, Pnpm or Bun). 
+
+To make sure you have them available on your machine, try running the following command.
+
+```sh
+$ npm -v && node -v
+v10.1.0
+v18.18.0
+```
+___
+
 - [Rijks](#rijks)
   - [Gettting started](#gettting-started)
   - [Installation](#installation)
@@ -37,25 +57,6 @@
   - [Links](#links)
 
 
-# Rijks 
-___
-
-This package is a TypeScript based wrapper around the public REST APIs of Rijksmuseum (Amsterdam).
-
-**Prerequisites**
-
-In order to use this package, you need an api key: You can read more on how to obtain the API key on [this page](http://rijksmuseum.github.io).
-
-This package requires [NodeJS](https://nodejs.org) (version 18 or later) and a node package manager (Npm, Yarn, Pnpm or Bun). 
-
-To make sure you have them available on your machine, try running the following command.
-
-```sh
-$ npm -v && node -v
-v10.1.0
-v18.18.0
-```
-___
 
 ## Gettting started
 

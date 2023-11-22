@@ -13,8 +13,6 @@ describe("Collection API", async () => {
     expect(res.status).toBe(200);
     expect(res.data?.artObjects.length).toBe(perPage);
     expect(res.error).toBeUndefined();
-
-    console.log(res.data);
   });
 
   it("should find 'The night watch'", () => {
