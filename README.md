@@ -18,46 +18,6 @@ v18.18.0
 ```
 ___
 
-- [Rijks](#rijks)
-  - [Gettting started](#gettting-started)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Rijks class](#rijks-class)
-    - [Constructor](#constructor)
-    - [Methods](#methods)
-      - [getCollection](#getcollection)
-        - [CollectionRequest](#collectionrequest)
-        - [CollectionResponse](#collectionresponse)
-      - [getCollectionDetails](#getcollectiondetails)
-        - [CollectionDetailsRequst](#collectiondetailsrequst)
-        - [CollectionDetailsResponse](#collectiondetailsresponse)
-      - [getCollectionImage](#getcollectionimage)
-        - [CollectionImageRequest](#collectionimagerequest)
-        - [CollectionImageResponse](#collectionimageresponse)
-  - [Interfaces](#interfaces)
-    - [Result](#result)
-  - [Types](#types)
-    - [ArtObject](#artobject)
-    - [ArtObjectDetails](#artobjectdetails)
-    - [ArtObjectPage](#artobjectpage)
-    - [Color](#color)
-    - [CountFacets](#countfacets)
-    - [Culture](#culture)
-    - [Facet](#facet)
-    - [FacetValue](#facetvalue)
-    - [Format](#format)
-    - [Image](#image)
-    - [Lavel](#lavel)
-    - [Link](#link)
-    - [Override](#override)
-    - [Rsponse](#rsponse)
-    - [Sort](#sort)
-    - [Tile](#tile)
-  - [Authors](#authors)
-  - [Links](#links)
-
-
-
 ## Gettting started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -150,7 +110,7 @@ const collection: CollectionResponse = await rijks.getCollection(params)
 ```
 ##### CollectionRequest 
 
-This **interface** contains all the possible parameters handled by **getCollection** method.
+This **type** contains all the possible parameters handled by **getCollection** method.
 
 | Parameter     | Type    | Required | Default |
 | ------------- | ------- | :------: | ------- |
@@ -171,7 +131,7 @@ This **interface** contains all the possible parameters handled by **getCollecti
 
 ##### CollectionResponse
 
-This **interface** contains all the values returned by **getCollection** method
+This **type** contains all the values returned by **getCollection** method
 
 | Value               | Type         | Required | Default |
 | ------------------- | ------------ | :------: | :-----: |
@@ -197,10 +157,10 @@ async getCollectionDetails(params:CollectionDetailsRequst) : Promise<Result<Coll
 
 ##### CollectionDetailsRequst
 
-This **interface** handles all possible *getCollectionDetails* parameters.
+This **type** handles all possible *getCollectionDetails* parameters.
 
 ```ts 
-interface CollectionDetailsRequest {
+type CollectionDetailsRequest = {
   objectNumber: string;
   format?: Format;
 }
@@ -214,10 +174,10 @@ interface CollectionDetailsRequest {
 
 ##### CollectionDetailsResponse
 
-This **interface** handles *getCollectionDetails* response.
+This **type** handles *getCollectionDetails* response.
 
 ```ts 
-interface CollectionDetailsResponse {
+type CollectionDetailsResponse = {
   elapsedMilliseconds: number;
   artObject: ArtObjectDetails;
   artObjectPage: ArtObjectPage;
@@ -238,11 +198,11 @@ async getCollectionImage(params:CollectionImageRequst) : Promise<Result<Collecti
 
 ##### CollectionImageRequest
 
-This **interface** handles all possible *getCollectionImage* parameters.
+This **type** handles all possible *getCollectionImage* parameters.
 
 
 ```ts 
-interface CollectionImageRequest {
+type CollectionImageRequest = {
   objectNumber: string;
 }
 ```
@@ -253,44 +213,42 @@ interface CollectionImageRequest {
 
 ##### CollectionImageResponse
 
-This **interface** handles *getCollectionImage* response.
+This **type** handles *getCollectionImage* response.
 
 ```ts 
-interface CollectionImageResponse {
+type CollectionImageResponse = {
   levels: Level[];
 }
 ```
 
 
-## Interfaces
-
-The following interfaces are used for mapping all API requests and responses. In case of complex structure, interfece are used in order to extends basic features.
-
-
-### Result
-
-This **interface** handles all REST APIs responses.
-
-```ts
-interface Result<T extends Respnse> {
-  success: boolean;
-  status: number;
-  data?: T;
-  error?: string;
-}
-```
-****
 
 ## Types
 
 In order to implement all features, the following common types have been implemended:
 
-### ArtObject
+### Result
 
-This **interface** has the following structure:
+This **type** is a discriminated union that handles all REST APIs responses.
 
 ```ts
-interface ArtObject {
+export type Result<T extends Response> =
+  | {
+      success: true;
+      data: T;
+    }
+  | {
+      success: false;
+      error: string;
+    };
+```
+
+### ArtObject
+
+This **type** has the following structure:
+
+```ts
+type ArtObject = {
   links: Link;
   id: string;
   objectNumber: string;
@@ -308,10 +266,10 @@ interface ArtObject {
 
 ### ArtObjectDetails
 
-This **interface** extends *ArtObject* with the following addon fields:
+This **type** extends *ArtObject* with the following addon fields:
 
 ```ts
-interface ArtObjectDetails extends ArtObject {
+export type ArtObjectDetails = {
   priref: string;
   language: Culture;
   copyrightHolder?: string;
@@ -328,7 +286,7 @@ interface ArtObjectDetails extends ArtObject {
   objectTypes: string[];
   objectCollection: string[];
   makers: string[];
-}
+} & ArtObject;
 ```
 
 ### ArtObjectPage

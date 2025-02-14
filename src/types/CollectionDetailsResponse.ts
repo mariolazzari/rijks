@@ -1,8 +1,8 @@
-import { ArtObjectPage } from "../types/ArtObjectPage";
+import { ArtObjectPage } from "./ArtObjectPage";
 import { ArtObjectDetails } from "./ArtObjectDetails";
 
-export interface CollectionDetailsResponse {
+export type CollectionDetailsResponse = {
   elapsedMilliseconds: number;
   artObject: ArtObjectDetails;
   artObjectPage: ArtObjectPage;
-}
+};

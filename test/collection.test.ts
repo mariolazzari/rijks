@@ -10,18 +10,23 @@ describe("Collection API", async () => {
 
   it("should return Rembrandt's top pieces sorted by relevance", () => {
     expect(res.success).toBeTruthy();
-    expect(res.status).toBe(200);
-    expect(res.data?.artObjects.length).toBe(perPage);
-    expect(res.error).toBeUndefined();
+    if (res.success) {
+      expect(res.data?.artObjects.length).toBe(perPage);
+    } else {
+      expect(res.error).toBeDefined();
+    }
   });
 
   it("should find 'The night watch'", () => {
     const search = "Night";
-    const nightWatch = res.data?.artObjects.find(a => a.title.includes(search));
-
-    expect(nightWatch).toBeDefined();
-    expect(nightWatch).toBeTypeOf("object");
-    expect(nightWatch?.longTitle.includes(search)).toBeTruthy();
+    if (res.success) {
+      const nightWatch = res.data.artObjects.find(a =>
+        a.title.includes(search)
+      );
+      expect(nightWatch).toBeDefined();
+      expect(nightWatch).toBeTypeOf("object");
+      expect(nightWatch?.longTitle.includes(search)).toBeTruthy();
+    }
   });
 
   it("should return an Unauthorized error", async () => {
@@ -30,8 +35,8 @@ describe("Collection API", async () => {
     });
 
     expect(res.success).toBeFalsy();
-    expect(res.status).toEqual(401);
-    expect(res.data).toBeUndefined();
-    expect(res.error).toEqual("Unauthorized");
+    if (!res.success) {
+      expect(res.error).toEqual("Unauthorized");
+    }
   });
 });

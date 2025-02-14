@@ -1,7 +1,7 @@
-import { Link } from "../types/Link";
-import { Image } from "../types/Image";
+import { Link } from "./Link";
+import { Image } from "./Image";
 
-export interface ArtObject {
+export type ArtObject = {
   links: Link;
   id: string;
   objectNumber: string;
@@ -14,4 +14,4 @@ export interface ArtObject {
   webImage?: Image;
   headerImage?: Image;
   productionPlaces: string[];
-}
+};

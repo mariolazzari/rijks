@@ -1,11 +1,11 @@
 import { Culture } from "./types/Culture";
-import { CollectionRequest } from "./interfaces/CollectionRequest";
-import { CollectionResponse } from "./interfaces/CollectionResponse";
-import { CollectionDetailsRequest } from "./interfaces/CollectionDetailsRequest";
-import { CollectionDetailsResponse } from "./interfaces/CollectionDetailsResponse";
-import { CollectionImageRequest } from "./interfaces/CollectionImageRequest";
-import { CollectionImageResponse } from "./interfaces/CollectionImageResponse";
-import { Result } from "./interfaces/Result";
+import { CollectionRequest } from "./types/CollectionRequest";
+import { CollectionResponse } from "./types/CollectionResponse";
+import { CollectionDetailsRequest } from "./types/CollectionDetailsRequest";
+import { CollectionDetailsResponse } from "./types/CollectionDetailsResponse";
+import { CollectionImageRequest } from "./types/CollectionImageRequest";
+import { CollectionImageResponse } from "./types/CollectionImageResponse";
+import { Result } from "./types/Result";
 import { Response } from "./types/Response";
 import { Sort } from "./types/Sort";
 
@@ -18,33 +18,34 @@ export class Rijks {
     this.baseUrl += `${culture}/collection`;
   }
 
-  // fetch data data from api
-  private async fetchData<T extends Response>(uri: string) {
-    let result: Result<T> = {
-      success: false,
-      status: 500,
-      data: undefined,
-      error: undefined,
-    };
+  private errorHandler(ex: unknown) {
+    const error = ex instanceof Error ? ex.message : "Internal server errror";
 
+    return error;
+  }
+
+  // fetch data data from api
+  private async fetchData<T extends Response>(uri: string): Promise<Result<T>> {
     try {
       const res = await fetch(uri);
-      result.status = res.status;
 
-      if (res.ok) {
-        result.success = true;
-        result.data = await res.json();
-      } else {
-        result.error = res.statusText;
+      // error handling
+      if (!res.ok) {
+        throw new Error(res.statusText);
       }
+
+      // success
+      const data: T = await res.json();
+
+      return {
+        success: true,
+        data,
+      };
     } catch (ex) {
-      if (ex instanceof Error) {
-        result.error = ex.message;
-      } else {
-        result.error = JSON.stringify(ex);
-      }
-    } finally {
-      return result;
+      return {
+        success: false,
+        error: this.errorHandler(ex),
+      };
     }
   }
 

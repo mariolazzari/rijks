@@ -11,13 +11,13 @@ describe("Collection Details API", async () => {
   it("should return 'The night watch' details", () => {
     // success state
     expect(res.success).toBeTruthy();
-    expect(res.status).toEqual(200);
-
-    // collection details
-    expect(res.data?.artObjectPage.objectNumber).toBe(objectNumber);
-    expect(res.data?.artObjectPage.plaqueDescription).toBeDefined();
-
-    // no errors
-    expect(res.error).toBeUndefined();
+    if (res.success) {
+      // collection details
+      expect(res.data.artObjectPage.objectNumber).toBe(objectNumber);
+      expect(res.data.artObjectPage.plaqueDescription).toBeDefined();
+    } else {
+      // no errors
+      expect(res.error).toBeUndefined();
+    }
   });
 });

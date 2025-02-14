@@ -1,6 +1,6 @@
-import { CollectionResponse } from "../interfaces/CollectionResponse";
-import { CollectionDetailsResponse } from "../interfaces/CollectionDetailsResponse";
-import { CollectionImageResponse } from "../interfaces/CollectionImageResponse";
+import { CollectionResponse } from "./CollectionResponse";
+import { CollectionDetailsResponse } from "./CollectionDetailsResponse";
+import { CollectionImageResponse } from "./CollectionImageResponse";
 
 export type Response =
   | CollectionResponse

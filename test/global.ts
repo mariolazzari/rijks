@@ -1,8 +1,6 @@
-import dotenv from "dotenv";
 import { Rijks } from "../src/Rijks";
 
 // enviroment
-dotenv.config();
 const { VITE_API_KEY } = process.env;
 
 // api call defaults
